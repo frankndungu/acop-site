@@ -12,7 +12,7 @@ export function FinalCTA() {
         <Image
           src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&h=800&fit=crop"
           alt="Campus"
-          fill
+          fill sizes="100vw"
           className="object-cover"
         />
         <div className="absolute inset-0 bg-linear-to-r from-violet-900/95 to-orange-600/95"></div>

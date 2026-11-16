@@ -57,7 +57,7 @@ export function FeaturedCourses({ courses }: FeaturedCoursesProps) {
                     <Image
                       src={featuredImage}
                       alt={course.title}
-                      fill
+                      fill sizes="(min-width: 768px) 33vw, 100vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                       unoptimized
                     />

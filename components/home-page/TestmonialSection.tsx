@@ -34,7 +34,7 @@ export const TestimonialsSection = () => {
         <Image
           src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1470&q=80"
           alt="Students background"
-          fill
+          fill sizes="100vw"
           className="object-cover mix-blend-overlay opacity-30"
         />
       </div>

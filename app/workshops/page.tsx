@@ -107,7 +107,7 @@ export default async function WorkshopsPage() {
           <Image
             src="https://res.cloudinary.com/kwishi/image/upload/v1794831013/ACOP/workshop_km40z0.webp"
             alt="Workshops & Events"
-            fill
+            fill sizes="100vw"
             priority
             className="object-cover object-top"
           />

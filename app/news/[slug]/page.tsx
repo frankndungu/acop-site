@@ -247,7 +247,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
               <div className="flex items-center gap-2">
                 {article.author?.node?.avatar?.url && (
                   <div className="relative w-6 h-6 rounded-full overflow-hidden ring-2 ring-white/30">
-                    <Image src={article.author.node.avatar.url} alt={authorName} fill className="object-cover" unoptimized />
+                    <Image src={article.author.node.avatar.url} alt={authorName} fill sizes="24px" className="object-cover" unoptimized />
                   </div>
                 )}
                 <span>By {authorName}</span>
@@ -458,7 +458,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
                           <Image 
                             src={article.author.node.avatar.url} 
                             alt={authorName} 
-                            fill 
+                            fill sizes="96px" 
                             className="object-cover" 
                             unoptimized 
                           />
@@ -730,7 +730,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
                       <Link key={related.id} href={`/news/${related.slug}`} className="group flex gap-3 hover:bg-gray-50 p-2 rounded-lg transition-all duration-300">
                         {related.featuredImage?.node?.sourceUrl && (
                           <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                            <Image src={related.featuredImage.node.sourceUrl} alt={related.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" unoptimized />
+                            <Image src={related.featuredImage.node.sourceUrl} alt={related.title} fill sizes="64px" className="object-cover group-hover:scale-105 transition-transform duration-500" unoptimized />
                           </div>
                         )}
                         <div>

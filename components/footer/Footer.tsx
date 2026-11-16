@@ -204,7 +204,7 @@ export const Footer = () => {
               <Image
                 src="https://res.cloudinary.com/kwishi/image/upload/v1794830776/ACOP/newsletter_hhxij3.jpg"
                 alt="Newsletter"
-                fill
+                fill sizes="448px"
                 className="object-cover"
               />
             </div>

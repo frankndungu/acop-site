@@ -106,7 +106,7 @@ export default async function EventsPage() {
           <Image
             src="/workshops-hero.jpg"
             alt="All Events"
-            fill
+            fill sizes="100vw"
             priority
             className="object-cover object-top"
           />

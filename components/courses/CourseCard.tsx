@@ -39,7 +39,7 @@ export function CourseCard({ course }: CourseCardProps) {
           <Image
             src={featuredImage}
             alt={course.title}
-            fill
+            fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             className="object-cover transition-transform duration-300 hover:scale-110"
             unoptimized
           />

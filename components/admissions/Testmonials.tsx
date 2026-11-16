@@ -78,7 +78,7 @@ export function Testimonials() {
                         <Image
                           src={testimonial.image}
                           alt={testimonial.name}
-                          fill
+                          fill sizes="128px"
                           className="relative rounded-full object-cover border-4 border-white shadow-lg"
                         />
                       </div>

@@ -161,7 +161,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
                     <Image
                       src={featuredImage || "/placeholder.jpg"}
                       alt={article.title}
-                      fill
+                      fill sizes="96px"
                       className="object-cover"
                       unoptimized
                     />
@@ -202,7 +202,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
               <Image
                 src={promoImages[currentPromoIndex].src}
                 alt={promoImages[currentPromoIndex].alt}
-                fill
+                fill sizes="(min-width: 1024px) 33vw, 100vw"
                 className="object-cover transition-opacity duration-500"
                 unoptimized
                 priority

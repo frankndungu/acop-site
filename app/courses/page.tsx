@@ -93,7 +93,7 @@ export default async function CoursesPage() {
               <Image
                 src="https://res.cloudinary.com/kwishi/image/upload/v1794829720/ACOP/courses_t9k3kv.png"
                 alt="Africana College Courses"
-                fill
+                fill sizes="100vw"
                 priority
                 unoptimized
                 className="object-cover object-top scale-105 transition-transform duration-700 group-hover:scale-100"

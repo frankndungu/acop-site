@@ -25,7 +25,7 @@ const HeroSection = () => {
       <Image
         src="https://res.cloudinary.com/kwishi/image/upload/v1794828956/ACOP/admission-background_jfh72x.jpg"
         alt="Africana College admissions background"
-        fill
+        fill sizes="100vw"
         priority
         className="object-cover object-top"
       />
