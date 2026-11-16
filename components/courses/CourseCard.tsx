@@ -56,7 +56,7 @@ export function CourseCard({ course }: CourseCardProps) {
       </div>
       
       <div className="p-6">
-        <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#4B0082] mb-3">
+        <h3 className="font-playfair text-xl font-bold text-[#4B0082] mb-3">
           {course.title}
         </h3>
         

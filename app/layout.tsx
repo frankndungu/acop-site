@@ -1,20 +1,24 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { TopHeader } from "@/components/header/TopHeader";
 import { Footer } from "@/components/footer/Footer";
 import Script from "next/script";
 import { MainHeaderWrapper } from "@/components/MainHeaderWrapper";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  variable: "--font-poppins-loaded",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const playfair = Playfair_Display({
+  variable: "--font-playfair-loaded",
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
 });
 
 export const viewport: Viewport = {
@@ -53,7 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${poppins.variable} ${playfair.variable} font-sans text-gray-900 antialiased`}>
         <TopHeader />
         <MainHeaderWrapper />
         <main>{children}</main>
