@@ -228,7 +228,7 @@ export default function BecomeAuthor() {
       <div className="relative bg-gradient-to-r from-orange-600 to-purple-700 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/authorpage.png"
+            src="https://res.cloudinary.com/kwishi/image/upload/v1794828958/ACOP/authorpage_uvufsr.png"
             alt="Writers and authors collaborating in a modern library space"
             fill
             className="object-cover"

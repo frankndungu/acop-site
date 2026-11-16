@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ? `${article.author?.node?.firstName || ''} ${article.author?.node?.lastName || ''}`.trim()
     : !isEvent ? article.author?.node?.name || null : null
   
-  let ogImageUrl = `${websiteUrl}/acoplogo.jpg`
+  let ogImageUrl = `https://res.cloudinary.com/kwishi/image/upload/v1794828912/ACOP/acoplogo_onlxud.jpg`
   
   if (article.featuredImage?.node?.sourceUrl) {
     ogImageUrl = article.featuredImage.node.sourceUrl

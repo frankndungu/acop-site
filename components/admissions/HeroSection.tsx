@@ -23,7 +23,7 @@ const HeroSection = () => {
       className="relative h-[50vh] min-h-[500px] bg-cover bg-center flex items-center"
     >
       <Image
-        src="/admission-background.jpg"
+        src="https://res.cloudinary.com/kwishi/image/upload/v1794828956/ACOP/admission-background_jfh72x.jpg"
         alt="Africana College admissions background"
         fill
         priority

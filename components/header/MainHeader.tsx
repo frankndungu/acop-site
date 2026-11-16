@@ -68,7 +68,7 @@ export const MainHeader = ({ hasRecentNews = false }: MainHeaderProps) => {
             >
               <div className="relative overflow-hidden rounded-lg shadow-md group-hover:shadow-lg transition-all duration-300">
                 <Image
-                  src="/acoplogo.jpg"
+                  src="https://res.cloudinary.com/kwishi/image/upload/v1794828912/ACOP/acoplogo_onlxud.jpg"
                   alt=""
                   width={isScrolled ? 36 : 40}
                   height={isScrolled ? 36 : 40}
@@ -300,7 +300,7 @@ export const MainHeader = ({ hasRecentNews = false }: MainHeaderProps) => {
                 <div className="flex items-center justify-between p-6 border-b border-gray-100">
                   <div className="flex items-center space-x-3">
                     <Image
-                      src="/acoplogo.jpg"
+                      src="https://res.cloudinary.com/kwishi/image/upload/v1794828912/ACOP/acoplogo_onlxud.jpg"
                       alt=""
                       width={40}
                       height={40}

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.acop.co.ke/authorpage.png',
+        url: 'https://res.cloudinary.com/kwishi/image/upload/v1794828958/ACOP/authorpage_uvufsr.png',
         width: 1200,
         height: 630,
         alt: 'Become an Author at Africana College',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Become an Author | Africana College of Professionals',
     description: 'Join our community of professional writers and educators.',
-    images: ['https://www.acop.co.ke/authorpage.png'],
+    images: ['https://res.cloudinary.com/kwishi/image/upload/v1794828958/ACOP/authorpage_uvufsr.png'],
     creator: '@acop_kenya',
     site: '@acop_kenya',
   },

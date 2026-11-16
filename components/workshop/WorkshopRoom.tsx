@@ -55,7 +55,7 @@ const WorkshopRoom = ({
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-3">
             <Image
-              src="/acoplogo.jpg"
+              src="https://res.cloudinary.com/kwishi/image/upload/v1794828912/ACOP/acoplogo_onlxud.jpg"
               alt="Africana College of Professionals"
               width={60}
               height={60}
