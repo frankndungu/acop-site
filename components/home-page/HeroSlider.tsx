@@ -130,7 +130,7 @@ export const HeroSlider = () => {
                 right on larger screens so the photo still shows. */}
             <div className="absolute inset-0 bg-black/60 md:bg-transparent md:bg-linear-to-r md:from-black/80 md:via-black/55 md:to-black/10" />
 
-            <div className="relative z-20 container mx-auto px-6 sm:px-10 h-full flex items-center">
+            <div className="relative z-20 container mx-auto px-6 sm:px-20 h-full flex items-center">
               <div className="max-w-xl lg:max-w-2xl text-white">
                 <h1 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-balance drop-shadow-md">
                   {slide.title}

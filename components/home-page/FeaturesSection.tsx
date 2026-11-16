@@ -1,5 +1,5 @@
 import React from 'react'
-import { CrossIcon, AwardIcon, HeartIcon } from 'lucide-react'
+import { CrossIcon, AwardIcon, HeartIcon, WrenchIcon } from 'lucide-react'
 const features = [
   {
     id: 1,
@@ -20,7 +20,7 @@ const features = [
   {
     id: 3,
     icon: (
-      <div className="w-10 h-10 text-primary group-hover:text-accent transition-colors" />
+      <WrenchIcon className="w-10 h-10 text-primary group-hover:text-accent transition-colors" />
     ),
     title: 'Hands-On Skills',
     description: 'Real-world practicals & mentorship',
@@ -36,7 +36,7 @@ const features = [
 ]
 export const FeaturesSection = () => {
   return (
-    <section className="py-16">
+    <section className="py-16 bg-lavender">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary mb-2">
@@ -50,7 +50,7 @@ export const FeaturesSection = () => {
               key={feature.id}
               className="bg-white rounded-xl shadow-md p-6 text-center group hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="mb-4 flex justify-center">{feature.icon}</div>
+              <div className="mb-4 flex justify-center" aria-hidden="true">{feature.icon}</div>
               <h3 className="font-playfair text-xl font-bold text-primary mb-2">
                 {feature.title}
               </h3>

@@ -31,6 +31,16 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
     { src: "https://res.cloudinary.com/kwishi/image/upload/v1794830786/ACOP/Septemberintake2026_nl6m5g.webp", alt: "September 2026 Intake - Apply Now" },
   ];
 
+  // Close the video modal with Escape
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   // Auto-scroll functionality
   useEffect(() => {
     const interval = setInterval(() => {
@@ -63,23 +73,28 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* FEATURED VIDEO CARD */}
           <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <div className="relative aspect-video cursor-pointer" onClick={() => setOpen(true)}>
+            <button
+              type="button"
+              className="relative aspect-video w-full block cursor-pointer"
+              onClick={() => setOpen(true)}
+              aria-label="Play video: A glimpse into Africana's purpose-driven learning"
+            >
               <Image
                 src="https://res.cloudinary.com/kwishi/image/upload/v1794829070/ACOP/banner2_b8tiys.jpg"
-                alt="Africana Video"
+                alt=""
                 fill
                 sizes="(min-width: 1024px) 33vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-white/40 flex items-center justify-center">
                 <div className="bg-white rounded-full p-4 shadow-lg animate-color-spread">
-                  <FaPlay size={30} className="text-primary" />
+                  <FaPlay size={30} className="text-primary" aria-hidden="true" />
                 </div>
               </div>
-            </div>
+            </button>
 
             <div className="p-5 flex flex-col gap-3">
-              <h3 className="font-playfair text-lg font-bold mb-1">
+              <h3 className="font-playfair text-xl font-bold mb-1">
                 A Glimpse into Africana&apos;s Purpose-Driven Learning
               </h3>
               <p className="text-sm text-gray-600">
@@ -96,6 +111,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
                 <div className="flex gap-4 mt-2">
                   <a
                     href="https://www.linkedin.com/in/susan-gitau-phd-7a80b0117/"
+                    aria-label="Dr. Susan Gitau on LinkedIn"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:opacity-80 transition-opacity"
@@ -104,6 +120,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
                   </a>
                   <a
                     href="https://x.com/DrSusanGitau"
+                    aria-label="Dr. Susan Gitau on X"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:opacity-80 transition-opacity"
@@ -112,6 +129,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
                   </a>
                   <a
                     href="https://www.instagram.com/dr.susangitau/"
+                    aria-label="Dr. Susan Gitau on Instagram"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:opacity-80 transition-opacity"
@@ -120,6 +138,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
                   </a>
                   <a
                     href="https://www.youtube.com/@dr.susangitau662"
+                    aria-label="Dr. Susan Gitau on YouTube"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:opacity-80 transition-opacity"
@@ -128,7 +147,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
                   </a>
                 </div>
 
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-sm text-gray-600 mt-2">
                   Watch Dr. Susan Gitau talk about Africana College of Professionals.
                 </p>
 
@@ -168,10 +187,10 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
                   </div>
                   <div className="p-4 flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-semibold text-orange-600 uppercase">
+                      <span className="text-xs font-semibold text-orange-700 uppercase">
                         {newsType}
                       </span>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-gray-500">
                         {formatDate(article.date)}
                       </span>
                     </div>
@@ -194,10 +213,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
           </div>
 
           {/* PROMO CARD WITH AUTO-SCROLL CAROUSEL */}
-          <Link
-            href="/get-started"
-            className="block rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 h-full relative group"
-          >
+          <div className="rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 h-full relative group">
             <div className="relative w-full h-full min-h-[400px] md:min-h-[500px]">
               <Image
                 src={promoImages[currentPromoIndex].src}
@@ -207,68 +223,68 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
                 unoptimized
                 priority
               />
-              
-              {/* Navigation Arrows */}
+
+              {/* Whole card links to the application page */}
+              <Link
+                href="/get-started"
+                aria-label="Apply now for the September 2026 intake"
+                className="absolute inset-0 z-10"
+              />
+
+              {/* Bottom fade behind the CTA */}
+              <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-accent/90 via-accent/50 to-transparent pointer-events-none" />
+
+              {/* CTA (visual; the link above handles the click) */}
+              <div className="absolute bottom-6 left-0 right-0 z-10 px-4 flex justify-center pointer-events-none">
+                <span className="bg-primary text-white px-8 py-3 rounded-full font-semibold text-sm md:text-base shadow-lg inline-flex items-center gap-2">
+                  Apply Now
+                  <FaChevronRight size={14} aria-hidden="true" />
+                </span>
+              </div>
+
+              {/* Carousel controls sit above the link; always visible on touch,
+                  revealed on hover/focus on desktop */}
               <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  prevPromoImage();
-                }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-all z-20 opacity-0 group-hover:opacity-100"
+                type="button"
+                onClick={prevPromoImage}
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-opacity md:opacity-0 md:group-hover:opacity-100 focus-visible:opacity-100 cursor-pointer"
                 aria-label="Previous image"
               >
-                <FaChevronLeft size={18} />
+                <FaChevronLeft size={18} aria-hidden="true" />
               </button>
-              
               <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  nextPromoImage();
-                }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-all z-20 opacity-0 group-hover:opacity-100"
+                type="button"
+                onClick={nextPromoImage}
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-opacity md:opacity-0 md:group-hover:opacity-100 focus-visible:opacity-100 cursor-pointer"
                 aria-label="Next image"
               >
-                <FaChevronRight size={18} />
+                <FaChevronRight size={18} aria-hidden="true" />
               </button>
 
-              {/* Dots Indicator */}
-              <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+              <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                 {promoImages.map((_, index) => (
                   <button
                     key={index}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setCurrentPromoIndex(index);
-                    }}
-                    className={`h-2 rounded-full transition-all ${
-                      index === currentPromoIndex ? 'w-8 bg-white' : 'w-2 bg-white/50'
+                    type="button"
+                    onClick={() => setCurrentPromoIndex(index)}
+                    className={`h-2 rounded-full transition-all cursor-pointer ${
+                      index === currentPromoIndex ? "w-8 bg-white" : "w-2 bg-white/60 hover:bg-white"
                     }`}
                     aria-label={`Go to image ${index + 1}`}
                   />
                 ))}
               </div>
-              
-              {/* Small fading overlay at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-accent/90 via-accent/50 to-transparent pointer-events-none" />
-              
-              {/* Primary Color Button on the overlay */}
-              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 w-full px-4 flex justify-center pointer-events-none">
-                <span className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full font-semibold text-sm md:text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-2 pointer-events-auto">
-                  Apply Now 🎓
-                  <span className="text-lg">→</span>
-                </span>
-              </div>
             </div>
-          </Link>
+          </div>
         </div>
       </div>
 
       {/* VIDEO MODAL */}
       {open && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Video"
           className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4"
           onClick={() => setOpen(false)}
         >
@@ -286,6 +302,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
 
             <div className="relative pb-[56.25%]">
               <iframe
+                title="Africana College of Professionals video"
                 src="https://www.youtube.com/embed/63CvxPVPMTs?autoplay=1&controls=1&rel=0"
                 className="absolute top-0 left-0 w-full h-full"
                 allow="autoplay; encrypted-media"
