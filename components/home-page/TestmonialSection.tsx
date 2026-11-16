@@ -14,15 +14,6 @@ const testimonials = [
     image:
       "https://res.cloudinary.com/kwishi/image/upload/v1794829724/ACOP/kagondu_rivanf.jpg",
   },
-  {
-    id: 2,
-    name: "Mr Allan Mathenge",
-    course: "Certificate in Training of Trainers",
-    quote:
-      "The values-based education at Africana prepared me to be an ethical leader and a trainer of trainers",
-    image:
-      "/allan.jpg",
-  },
 ];
 
 export const TestimonialsSection = () => {
