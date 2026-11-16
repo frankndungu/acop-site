@@ -28,7 +28,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
   // Array of images for the promo card carousel
   const promoImages = [
     { src: "https://res.cloudinary.com/kwishi/image/upload/v1794828954/ACOP/acopseptember_rutvvj.jpg", alt: "Campus Highlights" },
-    { src: "/Septemberintake2026.webp", alt: "September 2026 Intake - Apply Now" },
+    { src: "https://res.cloudinary.com/kwishi/image/upload/v1794830786/ACOP/Septemberintake2026_nl6m5g.webp", alt: "September 2026 Intake - Apply Now" },
   ];
 
   // Auto-scroll functionality

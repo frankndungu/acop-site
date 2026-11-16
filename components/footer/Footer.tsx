@@ -202,7 +202,7 @@ export const Footer = () => {
             {/* Modal Image */}
             <div className="w-full h-40 relative mb-4 rounded-lg overflow-hidden shadow-md">
               <Image
-                src="/newsletter.jpg"
+                src="https://res.cloudinary.com/kwishi/image/upload/v1794830776/ACOP/newsletter_hhxij3.jpg"
                 alt="Newsletter"
                 fill
                 className="object-cover"

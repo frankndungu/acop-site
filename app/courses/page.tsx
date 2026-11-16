@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.acop.co.ke/Septemberintake2026.webp",
+        url: "https://res.cloudinary.com/kwishi/image/upload/v1794830786/ACOP/Septemberintake2026_nl6m5g.webp",
         width: 1200,
         height: 630,
         alt: "Africana College Courses",
