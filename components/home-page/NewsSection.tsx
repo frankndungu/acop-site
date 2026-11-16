@@ -68,6 +68,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
                 src="https://res.cloudinary.com/kwishi/image/upload/v1794829070/ACOP/banner2_b8tiys.jpg"
                 alt="Africana Video"
                 fill
+                sizes="(min-width: 1024px) 33vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-white/40 flex items-center justify-center">

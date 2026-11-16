@@ -64,6 +64,7 @@ export const AboutSection = () => {
                 alt="Africana College campus"
                 className="object-cover"
                 fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
 
