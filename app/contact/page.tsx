@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.acop.co.ke/contact-og.png",
+        url: "https://res.cloudinary.com/kwishi/image/upload/v1794829726/ACOP/contact-og_fyhfit.png",
         width: 1200,
         height: 630,
         alt: "Contact Africana College of Professionals - We're here to help",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact Us | Africana College of Professionals",
     description: "Get in touch with us. We're here to answer your questions.",
-    images: ["https://www.acop.co.ke/contact-og.png"],
+    images: ["https://res.cloudinary.com/kwishi/image/upload/v1794829726/ACOP/contact-og_fyhfit.png"],
   },
 };
 
@@ -60,7 +60,7 @@ export default function ContactPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/contact-og.png"
+            src="https://res.cloudinary.com/kwishi/image/upload/v1794829726/ACOP/contact-og_fyhfit.png"
             alt="Contact Africana College of Professionals"
             fill
             priority

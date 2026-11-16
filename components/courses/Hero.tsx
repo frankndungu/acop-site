@@ -21,7 +21,7 @@ const Hero = () => {
       className="relative h-[70vh] min-h-[500px] bg-cover bg-center flex items-center"
     >
       <Image
-              src="/courses-background.JPG"
+              src="https://res.cloudinary.com/kwishi/image/upload/v1794829723/ACOP/courses-background_yq1gxr.jpg"
               alt="Africana College admissions background"
               fill
               priority
