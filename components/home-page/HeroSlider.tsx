@@ -9,7 +9,7 @@ const slides = [
     id: 1,
     title: "September 2026 Intake Now Open! With Free Courses",
     subtitle: "Start Your Purpose Journey with Africana College of Professionals",
-    bgImage: "https://res.cloudinary.com/kwishi/image/upload/v1794828954/ACOP/acopseptember_rutvvj.jpg",
+    bgImage: "https://res.cloudinary.com/kwishi/image/upload/v1794831463/ACOP/acopseptember_ddhmk7.jpg",
     primaryCta: "Apply Now",
     secondaryCta: "Explore Courses",
   },

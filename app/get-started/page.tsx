@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://res.cloudinary.com/kwishi/image/upload/v1794828954/ACOP/acopseptember_rutvvj.jpg",
+        url: "https://res.cloudinary.com/kwishi/image/upload/v1794831463/ACOP/acopseptember_ddhmk7.jpg",
         width: 1200,
         height: 630,
         alt: "September 2026 Intake - Africana College of Professionals",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "September 2026 Intake | Africana College of Professionals",
     description: "Join the September 2026 intake. Start your purpose-driven journey with Africana College.",
-    images: ["https://res.cloudinary.com/kwishi/image/upload/v1794828954/ACOP/acopseptember_rutvvj.jpg"],
+    images: ["https://res.cloudinary.com/kwishi/image/upload/v1794831463/ACOP/acopseptember_ddhmk7.jpg"],
   },
 };
 
