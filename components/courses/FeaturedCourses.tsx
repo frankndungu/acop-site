@@ -29,7 +29,7 @@ export function FeaturedCourses({ courses }: FeaturedCoursesProps) {
     <section className="bg-white py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#4B0082] mb-2">
+          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-[#4B0082] mb-2">
             Featured Courses
           </h2>
           <p className="text-gray-600">
@@ -57,7 +57,7 @@ export function FeaturedCourses({ courses }: FeaturedCoursesProps) {
                     <Image
                       src={featuredImage}
                       alt={course.title}
-                      fill
+                      fill sizes="(min-width: 768px) 33vw, 100vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                       unoptimized
                     />
@@ -73,7 +73,7 @@ export function FeaturedCourses({ courses }: FeaturedCoursesProps) {
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#4B0082] mb-2">
+                  <h3 className="font-playfair text-xl font-bold text-[#4B0082] mb-2">
                     {course.title}
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-2">

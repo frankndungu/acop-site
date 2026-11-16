@@ -3,20 +3,44 @@
 import React, { useState, useEffect } from "react";
 import {
   FacebookIcon,
-  InstagramIcon,
   LinkedinIcon,
   MapPinIcon,
   PhoneIcon,
   MailIcon,
-  ShieldCheckIcon,
-  PenTool,
+  XIcon,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
+const QUICK_LINKS: { label: string; href: string; external?: boolean }[] = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Courses", href: "/courses" },
+  { label: "Admission", href: "/admission" },
+  { label: "News", href: "/news" },
+  { label: "Contact", href: "/contact" },
+  { label: "Verify Certificate", href: "/verify" },
+  { label: "Become an Author", href: "/become-an-author" },
+  {
+    label: "Student Portal",
+    href: "https://moodle-200882-0.cloudclusters.net/",
+    external: true,
+  },
+];
+
 export const Footer = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Close the newsletter modal with Escape
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   const handleOpen = () => {
     setLoading(true);
@@ -63,101 +87,65 @@ export const Footer = () => {
               <p className="text-white/80 mb-4">
                 Transforming lives through faith-based education and professional excellence.
               </p>
-              <div className="flex space-x-4">
-                <a href="#" className="text-white hover:text-accent">
-                  <FacebookIcon size={20} />
+              <div className="flex gap-4">
+                <a
+                  href="https://www.facebook.com/acop"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Africana College on Facebook"
+                  className="text-white hover:text-accent transition-colors"
+                >
+                  <FacebookIcon size={20} aria-hidden="true" />
                 </a>
-                <a href="#" className="text-white hover:text-accent">
-                  <InstagramIcon size={20} />
-                </a>
-                <a href="#" className="text-white hover:text-accent">
-                  <LinkedinIcon size={20} />
+                <a
+                  href="https://www.linkedin.com/company/africana-college"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Africana College on LinkedIn"
+                  className="text-white hover:text-accent transition-colors"
+                >
+                  <LinkedinIcon size={20} aria-hidden="true" />
                 </a>
               </div>
             </div>
 
             {/* Quick Links */}
-            <div>
+            <nav aria-label="Footer">
               <h3 className="font-playfair text-xl font-bold mb-4">Quick Links</h3>
               <ul className="space-y-2">
-                <li><Link href="/" className="text-white/80 hover:text-accent">Home</Link></li>
-                <li><Link href="/courses" className="text-white/80 hover:text-accent">Courses</Link></li>
-                <li><Link href="/admissions" className="text-white/80 hover:text-accent">Admissions</Link></li>
-                <li>
-                  <Link
-                    href="https://form.jotform.com/253172041859559"
-                    target="_blank"
-                    className="text-white/80 hover:text-accent"
-                  >
-                    Contact
-                  </Link>
-                </li>
-                {/* Certificate Verification Link */}
-                <li>
-                  <Link
-                    href="/verify"
-                    className="text-white/80 hover:text-accent flex items-center gap-2"
-                  >
-                    <ShieldCheckIcon size={16} />
-                    Verify Certificate
-                  </Link>
-                </li>
-                {/* Become an Author Link - NEW */}
-                <li>
-                  <Link
-                    href="/become-an-author"
-                    className="text-white/80 hover:text-accent flex items-center gap-2"
-                  >
-                    <PenTool size={16} />
-                    Become an Author
-                  </Link>
-                </li>
-                <li>
-                  <a href="#" className="text-white/80 hover:text-accent">Student Portal</a>
-                </li>
-                <li>
-                  <Link
-                    href="https://cms.acop.co.ke/acopcmsportalcollege"
-                    target="_blank"
-                    className="text-white/80 hover:text-accent"
-                  >
-                    CMS Portal
-                  </Link>
-                </li>
-                {/* ACOP CRM */}
-                <li>
-                  <a
-                    href="https://app-eu1.hubspot.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white/80 hover:text-accent flex items-center gap-2"
-                  >
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
-                    </svg>
-                    CRM Portal
-                  </a>
-                </li>
+                {QUICK_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      {...(link.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="text-white/80 hover:text-accent transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
-            </div>
+            </nav>
 
             {/* Contact */}
             <div>
               <h3 className="font-playfair text-xl font-bold mb-4">Contact Info</h3>
               <ul className="space-y-3">
-                <li className="flex items-start">
-                  <MapPinIcon size={18} className="mr-2 mt-1" />
+                <li className="flex items-start gap-3">
+                  <MapPinIcon size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
                   <span className="text-white/80">Kianjau House 4th Floor, Thika</span>
                 </li>
-                <li className="flex items-center">
-                  <PhoneIcon size={18} className="mr-2" />
-                  <a href="tel:+254756234165" className="text-white/80 hover:text-accent">
+                <li className="flex items-start gap-3">
+                  <PhoneIcon size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
+                  <a href="tel:+254756234165" className="text-white/80 hover:text-accent transition-colors">
                     +254 756 234165
                   </a>
                 </li>
-                <li className="flex items-center">
-                  <MailIcon size={18} className="mr-2" />
-                  <a href="mailto:info@acop.co.ke" className="text-white/80 hover:text-accent">
+                <li className="flex items-start gap-3">
+                  <MailIcon size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
+                  <a href="mailto:info@acop.co.ke" className="text-white/80 hover:text-accent transition-colors">
                     info@acop.co.ke
                   </a>
                 </li>
@@ -172,22 +160,30 @@ export const Footer = () => {
               </p>
               <button
                 onClick={handleOpen}
-                className="bg-accent hover:bg-accent/90 text-white px-6 py-2 rounded-full font-medium w-full cursor-pointer"
+                className="bg-accent hover:bg-accent/90 text-white px-6 py-2.5 rounded-full font-medium w-full cursor-pointer transition-colors"
               >
                 Subscribe
               </button>
             </div>
           </div>
 
-          <div className="border-t border-white/20 mt-12 pt-6 text-center text-white/70 text-sm">
-            © 2025 Africana College of Professionals – Educating in Truth and Light.
+          <div className="border-t border-white/20 mt-12 pt-6 text-center text-white/80 text-sm">
+            © {new Date().getFullYear()} Africana College of Professionals – Educating in Truth and Light.
           </div> 
         </div>
       </footer>
 
       {/* ================= MODAL ================= */}
       {open && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-auto">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Subscribe to our newsletter"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-auto"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setOpen(false);
+          }}
+        >
           <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative overflow-y-auto max-h-[90vh]">
             
             {/* Close Button */}
@@ -196,15 +192,15 @@ export const Footer = () => {
               className="cursor-pointer absolute top-2 right-2 w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors"
               aria-label="Close"
             >
-              ✕
+              <XIcon size={16} aria-hidden="true" />
             </button>
 
             {/* Modal Image */}
             <div className="w-full h-40 relative mb-4 rounded-lg overflow-hidden shadow-md">
               <Image
                 src="https://res.cloudinary.com/kwishi/image/upload/v1794830776/ACOP/newsletter_hhxij3.jpg"
-                alt="Newsletter"
-                fill
+                alt=""
+                fill sizes="448px"
                 className="object-cover"
               />
             </div>

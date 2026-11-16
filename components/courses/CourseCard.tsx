@@ -39,7 +39,7 @@ export function CourseCard({ course }: CourseCardProps) {
           <Image
             src={featuredImage}
             alt={course.title}
-            fill
+            fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             className="object-cover transition-transform duration-300 hover:scale-110"
             unoptimized
           />
@@ -56,7 +56,7 @@ export function CourseCard({ course }: CourseCardProps) {
       </div>
       
       <div className="p-6">
-        <h3 className="font-['Playfair_Display'] text-xl font-bold text-[#4B0082] mb-3">
+        <h3 className="font-playfair text-xl font-bold text-[#4B0082] mb-3">
           {course.title}
         </h3>
         

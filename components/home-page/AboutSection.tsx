@@ -34,25 +34,27 @@ export const AboutSection = () => {
 
   // Counter animation
   useEffect(() => {
-    if (isVisible) {
-      const interval = setInterval(() => {
-        setStats((currentStats) =>
-          currentStats.map((stat) => ({
-            ...stat,
-            value:
-              stat.value < stat.target
-                ? Math.min(stat.value + Math.ceil(stat.target / 20), stat.target)
-                : stat.target,
-          }))
-        );
-      }, 50);
+    if (!isVisible) return;
 
-      return () => clearInterval(interval);
-    }
+    const interval = setInterval(() => {
+      setStats((currentStats) => {
+        const next = currentStats.map((stat) => ({
+          ...stat,
+          value: Math.min(stat.value + Math.ceil(stat.target / 20), stat.target),
+        }));
+        // Stop ticking once every counter has reached its target
+        if (next.every((stat) => stat.value >= stat.target)) {
+          clearInterval(interval);
+        }
+        return next;
+      });
+    }, 50);
+
+    return () => clearInterval(interval);
   }, [isVisible]);
 
   return (
-    <section id="about-section" className="py-12 sm:py-16">
+    <section id="about-section" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
@@ -64,6 +66,7 @@ export const AboutSection = () => {
                 alt="Africana College campus"
                 className="object-cover"
                 fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
 
@@ -78,7 +81,7 @@ export const AboutSection = () => {
           </div>
 
           {/* TEXT CONTENT */}
-          <div className="fade-in-section text-center lg:text-left">
+          <div className="text-center lg:text-left">
             <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-primary mb-4">
               About Africana College of Professionals
             </h2>

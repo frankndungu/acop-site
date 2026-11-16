@@ -137,7 +137,7 @@ const LeadershipSection = () => {
                 <Image
                   src={member.image}
                   alt={member.name}
-                  fill
+                  fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-purple-900 to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>

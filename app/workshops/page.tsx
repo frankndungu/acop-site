@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Workshops & Events | Africana College of Professionals',
     description: 'Explore professional workshops and training programs at ACOP.',
-    images: ['https://www.acop.co.ke/workshops-og.jpg'],
+    images: ['https://res.cloudinary.com/kwishi/image/upload/v1794831013/ACOP/workshop_km40z0.webp'],
     creator: '@acop_kenya',
     site: '@acop_kenya',
   },
@@ -107,7 +107,7 @@ export default async function WorkshopsPage() {
           <Image
             src="https://res.cloudinary.com/kwishi/image/upload/v1794831013/ACOP/workshop_km40z0.webp"
             alt="Workshops & Events"
-            fill
+            fill sizes="100vw"
             priority
             className="object-cover object-top"
           />

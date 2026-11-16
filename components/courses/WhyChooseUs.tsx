@@ -43,7 +43,7 @@ export function WhyChoose() {
     <section className="bg-[#F8F6FF] py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#4B0082] mb-2">
+          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-[#4B0082] mb-2">
             Why Study With Africana
           </h2>
           <p className="text-gray-600">
@@ -62,7 +62,7 @@ export function WhyChoose() {
                 <div className="w-16 h-16 bg-[#4B0082] rounded-full flex items-center justify-center mb-4 group-hover:bg-[#FF7F32] transition-colors duration-300">
                   <Icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="font-['Playfair_Display'] text-lg font-bold text-[#4B0082] mb-2">
+                <h3 className="font-playfair text-lg font-bold text-[#4B0082] mb-2">
                   {benefit.title}
                 </h3>
                 <p className="text-gray-600 text-sm">{benefit.description}</p>

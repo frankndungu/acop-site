@@ -518,7 +518,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
                       <Link key={related.id} href={`/workshops/${related.slug}`} className="group flex gap-3 hover:bg-gray-50 p-2 rounded-lg transition-all duration-300">
                         {related.featuredImage?.node?.sourceUrl && (
                           <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                            <Image src={related.featuredImage.node.sourceUrl} alt={related.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" unoptimized />
+                            <Image src={related.featuredImage.node.sourceUrl} alt={related.title} fill sizes="64px" className="object-cover group-hover:scale-105 transition-transform duration-500" unoptimized />
                           </div>
                         )}
                         <div>

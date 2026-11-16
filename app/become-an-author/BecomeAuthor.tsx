@@ -230,7 +230,7 @@ export default function BecomeAuthor() {
           <Image
             src="https://res.cloudinary.com/kwishi/image/upload/v1794828958/ACOP/authorpage_uvufsr.png"
             alt="Writers and authors collaborating in a modern library space"
-            fill
+            fill sizes="100vw"
             className="object-cover"
             priority
           />

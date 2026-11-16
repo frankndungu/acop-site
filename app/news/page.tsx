@@ -120,7 +120,7 @@ export default async function NewsPage({
           <Image
             src="https://res.cloudinary.com/kwishi/image/upload/v1794830776/ACOP/news-og_fj1mvz.png"
             alt="News & Updates"
-            fill
+            fill sizes="100vw"
             priority
             className="object-cover object-top"
           />

@@ -62,7 +62,7 @@ export default function ContactPage() {
           <Image
             src="https://res.cloudinary.com/kwishi/image/upload/v1794829726/ACOP/contact-og_fyhfit.png"
             alt="Contact Africana College of Professionals"
-            fill
+            fill sizes="100vw"
             priority
             className="object-cover object-top"
           />

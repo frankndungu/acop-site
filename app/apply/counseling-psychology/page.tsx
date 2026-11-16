@@ -58,7 +58,7 @@ export default function CounselingPsychologyApplyPage() {
           <Image
             src="https://cms.acop.co.ke/wp-content/uploads/2026/04/pexels-shkrabaanthony-7579115-scaled.jpg"
             alt="Diploma in Counseling Psychology - Africana College"
-            fill
+            fill sizes="100vw"
             priority
             className="object-cover"
           />

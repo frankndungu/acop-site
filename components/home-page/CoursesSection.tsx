@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { BookOpenIcon, CalendarIcon, BanknoteIcon } from 'lucide-react';
 import { Course, getCourseTypeDisplayName, decodeHtmlEntities } from '@/lib/wordpress';
 
 interface CoursesSectionProps {
@@ -33,7 +34,7 @@ export const CoursesSection = ({ courses }: CoursesSectionProps) => {
   }
 
   return (
-    <section id="courses" className="py-16 bg-lavender">
+    <section id="courses" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-playfair text-3xl md:text-4xl font-bold text-primary mb-2">
@@ -56,20 +57,20 @@ export const CoursesSection = ({ courses }: CoursesSectionProps) => {
             return (
               <div
                 key={course.id}
-                className="bg-white rounded-xl shadow-md overflow-hidden group hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                className="bg-white rounded-xl border border-gray-100 shadow-md overflow-hidden group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"
               >
                 <div className="relative h-48 w-full">
                   {featuredImage ? (
                     <Image
                       src={featuredImage}
                       alt={course.title}
-                      fill
+                      fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                       unoptimized
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-orange-100 to-purple-100 flex items-center justify-center">
-                      <span className="text-4xl">📚</span>
+                      <BookOpenIcon className="w-12 h-12 text-primary/60" aria-hidden="true" />
                     </div>
                   )}
                   <div className="absolute top-3 left-3">
@@ -78,26 +79,28 @@ export const CoursesSection = ({ courses }: CoursesSectionProps) => {
                     </span>
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   <h3 className="font-playfair text-xl font-bold text-primary mb-2 line-clamp-1">
                     {course.title}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                     {cleanedExcerpt}
                   </p>
                   {course.courseDetails?.duration && (
-                    <p className="text-xs text-gray-400 mb-2">
-                      📅 Duration: {course.courseDetails.duration}
+                    <p className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                      <CalendarIcon className="w-4 h-4 shrink-0" aria-hidden="true" />
+                      Duration: {course.courseDetails.duration}
                     </p>
                   )}
                   {course.courseDetails?.fee && (
-                    <p className="text-xs text-orange-600 font-semibold mb-3">
-                      💰 {course.courseDetails.fee}
+                    <p className="flex items-center gap-2 text-sm text-orange-700 font-semibold mb-3">
+                      <BanknoteIcon className="w-4 h-4 shrink-0" aria-hidden="true" />
+                      {course.courseDetails.fee}
                     </p>
                   )}
                   <Link
                     href={`/courses/${course.slug}`}
-                    className="inline-block bg-accent text-white hover:bg-accent/90 px-6 py-2 rounded-full font-medium transition-colors text-sm"
+                    className="mt-auto self-start bg-accent text-white hover:bg-accent/90 px-6 py-2 rounded-full font-medium transition-colors text-sm"
                   >
                     View Details
                   </Link>

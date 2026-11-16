@@ -20,6 +20,8 @@ export const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    // Nothing to rotate through with a single testimonial
+    if (testimonials.length < 2) return;
     const interval = setInterval(
       () => setCurrentIndex((prev) => (prev + 1) % testimonials.length),
       6000
@@ -34,7 +36,7 @@ export const TestimonialsSection = () => {
         <Image
           src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1470&q=80"
           alt="Students background"
-          fill
+          fill sizes="100vw"
           className="object-cover mix-blend-overlay opacity-30"
         />
       </div>
@@ -77,16 +79,19 @@ export const TestimonialsSection = () => {
           ))}
 
           {/* Indicators */}
+          {testimonials.length > 1 && (
           <div className="flex justify-center gap-3 mt-8">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
+                aria-label={`Show testimonial ${index + 1}`}
                 className={`w-3 h-3 rounded-full transition-all duration-300 
                   ${index === currentIndex ? "bg-white scale-110" : "bg-white/50 scale-90 hover:scale-105"}`}
               />
             ))}
           </div>
+          )}
         </div>
 
         {/* CTA */}

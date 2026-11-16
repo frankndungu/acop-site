@@ -92,7 +92,7 @@ export default async function GetStartedPage() {
           <Image
             src="https://res.cloudinary.com/kwishi/image/upload/v1794830786/ACOP/Septemberintake2026_nl6m5g.webp"
             alt="September 2026 Intake - Africana College of Professionals"
-            fill
+            fill sizes="100vw"
             priority
             className="object-cover object-top"
           />

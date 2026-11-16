@@ -52,7 +52,7 @@ export function CategoryFilter({
       <div className="max-w-7xl mx-auto">
         {!isSticky && (
           <div className="text-center mb-8">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-bold text-[#4B0082] mb-2">
+            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-[#4B0082] mb-2">
               Find Your Course
             </h2>
             <p className="text-gray-600">

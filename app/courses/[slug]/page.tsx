@@ -214,7 +214,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                     <Image
                       src={featuredImage}
                       alt={course.title}
-                      fill
+                      fill sizes="(min-width: 1024px) 66vw, 100vw"
                       className="object-cover"
                       priority
                       unoptimized
