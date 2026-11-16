@@ -1,11 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LogOut, Video, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 
 interface WorkshopRoomProps {
-  meetingLink: string;
   onLogout: () => void;
   workshopTitle?: string;
   workshopDate?: string;
@@ -15,7 +14,6 @@ interface WorkshopRoomProps {
 }
 
 const WorkshopRoom = ({
-  meetingLink,
   onLogout,
   workshopTitle = 'Teachers\' Mindful Self-Compassion Online Workshop - Day 2',
   workshopDate = '21st July 2026',
@@ -23,6 +21,33 @@ const WorkshopRoom = ({
   facilitator = 'Dr. Susan Gitau',
   coordinator = 'Alice Songok',
 }: WorkshopRoomProps) => {
+  const [meetingLink, setMeetingLink] = useState<string | null>(null);
+  const [linkError, setLinkError] = useState(false);
+
+  // Fetch the meeting link only after authentication
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const response = await fetch('/api/workshop-link', { credentials: 'include' });
+        if (response.status === 401) {
+          if (!cancelled) onLogout();
+          return;
+        }
+        if (!response.ok) throw new Error(`Status ${response.status}`);
+        const data = await response.json();
+        if (!cancelled) setMeetingLink(data.meetingLink);
+      } catch (error) {
+        console.error('Failed to load meeting link:', error);
+        if (!cancelled) setLinkError(true);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-orange-50 py-12 px-4">
       <div className="container mx-auto max-w-2xl">
@@ -62,15 +87,26 @@ const WorkshopRoom = ({
 
           {/* Join Button - Animated Purple */}
           <div className="p-8 flex justify-center">
-            <a
-              href={meetingLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg cursor-pointer w-full max-w-md animate-pulse"
-            >
-              <Video className="w-6 h-6" />
-              Join Session Now
-            </a>
+            {meetingLink ? (
+              <a
+                href={meetingLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3 bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg cursor-pointer w-full max-w-md animate-pulse"
+              >
+                <Video className="w-6 h-6" />
+                Join Session Now
+              </a>
+            ) : linkError ? (
+              <p className="text-sm text-red-600 text-center">
+                We couldn&apos;t load the meeting link. Please refresh the page or contact info@acop.co.ke.
+              </p>
+            ) : (
+              <div className="flex items-center justify-center gap-3 bg-purple-300 text-white px-8 py-4 rounded-xl font-semibold text-lg w-full max-w-md">
+                <Video className="w-6 h-6" />
+                Loading link...
+              </div>
+            )}
           </div>
         </div>
 

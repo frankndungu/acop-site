@@ -2,13 +2,22 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { notFound } from 'next/navigation';
 import WorkshopLogin from './WorkshopLogin';
 import WorkshopRoom from './WorkshopRoom';
 import SessionModal from './SessionModal';
 
+// Show the "stay logged in" modal when this many seconds remain
+const WARNING_SECONDS = 5 * 60;
+
+function formatDuration(totalSeconds: number): string {
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = totalSeconds % 60;
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
+}
+
 interface WorkshopWrapperProps {
-  meetingLink: string;
   workshopTitle?: string;
   workshopDate?: string;
   workshopTime?: string;
@@ -20,7 +29,6 @@ interface WorkshopWrapperProps {
 }
 
 export default function WorkshopWrapper({
-  meetingLink,
   workshopTitle = 'Workshop',
   workshopDate = 'Date TBD',
   workshopTime = 'Time TBD',
@@ -33,10 +41,24 @@ export default function WorkshopWrapper({
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [timeRemaining, setTimeRemaining] = useState(60);
+  const [timeRemaining, setTimeRemaining] = useState(0);
+  const [expiresAt, setExpiresAt] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [extendCount, setExtendCount] = useState(0);
+  const [maxExtends, setMaxExtends] = useState(3);
   const [isExtending, setIsExtending] = useState(false);
+
+  // Sync local timers with the session state reported by the server
+  const applySession = (data: {
+    expiresAt: number;
+    extensionsUsed: number;
+    maxExtensions: number;
+  }) => {
+    setExpiresAt(data.expiresAt);
+    setTimeRemaining(Math.max(0, Math.round((data.expiresAt - Date.now()) / 1000)));
+    setExtendCount(data.extensionsUsed);
+    setMaxExtends(data.maxExtensions);
+  };
 
   // Check access on mount
   useEffect(() => {
@@ -50,7 +72,7 @@ export default function WorkshopWrapper({
 
         if (data.authenticated) {
           setIsAuthenticated(true);
-          setTimeRemaining(60);
+          applySession(data);
         } else {
           setIsAuthenticated(false);
         }
@@ -65,28 +87,27 @@ export default function WorkshopWrapper({
     checkAuth();
   }, []);
 
-  // Countdown timer
+  // Countdown timer (derived from the server-issued expiry, so it can't drift)
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated || expiresAt === null) return;
 
-    const timer = setInterval(() => {
-      setTimeRemaining((prev) => {
-        if (prev === 15 && !showModal && extendCount < 3) {
-          setShowModal(true);
-        }
+    const tick = () => {
+      const remaining = Math.max(0, Math.round((expiresAt - Date.now()) / 1000));
+      setTimeRemaining(remaining);
+      if (remaining <= 0) {
+        handleAccessExpired();
+      } else if (remaining <= WARNING_SECONDS && extendCount < maxExtends) {
+        setShowModal(true);
+      }
+    };
 
-        if (prev <= 1) {
-          handleAccessExpired();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
+    tick();
+    const timer = setInterval(tick, 1000);
     return () => clearInterval(timer);
-  }, [isAuthenticated, showModal, extendCount]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, expiresAt, extendCount, maxExtends]);
 
-  // Check access validity every 5 seconds
+  // Check access validity every 30 seconds
   useEffect(() => {
     if (!isAuthenticated) return;
 
@@ -106,7 +127,7 @@ export default function WorkshopWrapper({
       }
     };
 
-    const interval = setInterval(checkSession, 5000);
+    const interval = setInterval(checkSession, 30000);
     return () => clearInterval(interval);
   }, [isAuthenticated]);
 
@@ -135,8 +156,7 @@ export default function WorkshopWrapper({
       });
 
       if (response.ok) {
-        setTimeRemaining(60);
-        setExtendCount((prev) => prev + 1);
+        applySession(await response.json());
         setShowModal(false);
       } else {
         handleAccessExpired();
@@ -168,8 +188,16 @@ export default function WorkshopWrapper({
   const handleLoginSuccess = async () => {
     setIsAuthenticated(true);
     setShowModal(false);
-    setTimeRemaining(60);
-    setExtendCount(0);
+    try {
+      const response = await fetch('/api/verify-workshop-password', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      const data = await response.json();
+      if (data.authenticated) applySession(data);
+    } catch (error) {
+      console.error('Session sync failed:', error);
+    }
   };
 
   // ✅ DEBUG: Log to check if featuredImage is received
@@ -183,10 +211,6 @@ export default function WorkshopWrapper({
     );
   }
 
-  if (!meetingLink) {
-    return notFound();
-  }
-
   if (isAuthenticated) {
     return (
       <>
@@ -196,25 +220,24 @@ export default function WorkshopWrapper({
             onExtend={handleExtendAccess}
             onLogout={handleLogout}
             extendCount={extendCount}
-            maxExtends={3}
+            maxExtends={maxExtends}
             isExtending={isExtending}
           />
         )}
 
         <div className="fixed bottom-4 right-4 bg-white rounded-xl shadow-lg p-3 border border-gray-200 z-40">
           <div className="flex items-center gap-3">
-            <div className={`w-2 h-2 rounded-full ${timeRemaining > 30 ? 'bg-green-500' : timeRemaining > 15 ? 'bg-yellow-500' : 'bg-red-500 animate-pulse'}`} />
+            <div className={`w-2 h-2 rounded-full ${timeRemaining > 15 * 60 ? 'bg-green-500' : timeRemaining > WARNING_SECONDS ? 'bg-yellow-500' : 'bg-red-500 animate-pulse'}`} />
             <div>
               <p className="text-xs text-gray-500">You will be logged out in</p>
-              <p className={`font-bold text-sm ${timeRemaining <= 15 ? 'text-red-600' : 'text-gray-800'}`}>
-                {timeRemaining}s
+              <p className={`font-bold text-sm ${timeRemaining <= WARNING_SECONDS ? 'text-red-600' : 'text-gray-800'}`}>
+                {formatDuration(timeRemaining)}
               </p>
             </div>
           </div>
         </div>
 
         <WorkshopRoom
-          meetingLink={meetingLink}
           onLogout={handleLogout}
           workshopTitle={workshopTitle}
           workshopDate={workshopDate}

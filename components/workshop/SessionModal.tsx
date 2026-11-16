@@ -12,6 +12,12 @@ interface SessionModalProps {
   isExtending: boolean;
 }
 
+function formatDuration(totalSeconds: number): string {
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return `${m}:${String(s).padStart(2, '0')}`;
+}
+
 const SessionModal = ({
   timeRemaining,
   onExtend,
@@ -56,7 +62,7 @@ const SessionModal = ({
               <div className="absolute inset-0 rounded-full border-4 border-red-500 animate-ping opacity-25" />
               <div className="flex flex-col items-center">
                 <Clock className="w-8 h-8 text-red-500" />
-                <span className="text-xs font-bold text-red-500 mt-1">{timeRemaining}s</span>
+                <span className="text-xs font-bold text-red-500 mt-1">{formatDuration(timeRemaining)}</span>
               </div>
             </div>
           </div>
@@ -69,7 +75,7 @@ const SessionModal = ({
             You Will Be Logged Out Soon
           </h2>
           <p className="text-gray-600 text-sm mt-2">
-            You will be logged out in <span className="font-bold text-red-600">{timeRemaining} seconds</span>.
+            You will be logged out in <span className="font-bold text-red-600">{formatDuration(timeRemaining)}</span>.
           </p>
           {extendCount > 0 && (
             <p className="text-xs text-gray-400 mt-1">
@@ -99,14 +105,14 @@ const SessionModal = ({
           ) : (
             <>
               <RefreshCw className="w-4 h-4" />
-              {canExtend ? `Stay Logged In (${maxExtends - extendCount} left)` : 'No Extensions Left'}
+              {canExtend ? `Stay Logged In (+1 hour, ${maxExtends - extendCount} left)` : 'No Extensions Left'}
             </>
           )}
         </button>
 
         {!canExtend && (
           <p className="text-xs text-yellow-600 text-center mt-2">
-            ⚠️ You&apos;ll be logged out in {timeRemaining}s.
+            ⚠️ You&apos;ll be logged out in {formatDuration(timeRemaining)}.
           </p>
         )}
 
