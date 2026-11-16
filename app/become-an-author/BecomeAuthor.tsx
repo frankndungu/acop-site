@@ -12,6 +12,9 @@ import {
   Loader2, LogIn, Award, BookOpen, Users, TrendingUp
 } from 'lucide-react';
 
+const CMS_LOGIN_URL =
+  process.env.NEXT_PUBLIC_CMS_LOGIN_URL || 'https://cms.acop.co.ke/wp-admin/';
+
 export default function BecomeAuthor() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -62,7 +65,7 @@ export default function BecomeAuthor() {
     if (showSuccessModal && countdown > 0) {
       timer = setTimeout(() => setCountdown(countdown - 1), 1000);
     } else if (showSuccessModal && countdown === 0) {
-      window.location.href = 'https://cms.acop.co.ke/wp-login.php?itsec-hb-token=acopcmsportalcollege';
+      window.location.href = CMS_LOGIN_URL;
     }
     return () => clearTimeout(timer);
   }, [showSuccessModal, countdown]);
@@ -210,7 +213,7 @@ export default function BecomeAuthor() {
             </div>
             <button
               onClick={() => {
-                window.location.href = 'https://cms.acop.co.ke/wp-login.php?itsec-hb-token=acopcmsportalcollege';
+                window.location.href = CMS_LOGIN_URL;
               }}
               className="w-full bg-gradient-to-r from-orange-600 to-purple-600 text-white py-2 rounded-lg font-semibold hover:from-orange-700 hover:to-purple-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
@@ -225,7 +228,7 @@ export default function BecomeAuthor() {
       <div className="relative bg-gradient-to-r from-orange-600 to-purple-700 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/authorpage.png"
+            src="https://res.cloudinary.com/kwishi/image/upload/v1794828958/ACOP/authorpage_uvufsr.png"
             alt="Writers and authors collaborating in a modern library space"
             fill
             className="object-cover"
@@ -653,7 +656,7 @@ export default function BecomeAuthor() {
             <p className="text-sm text-gray-500">
               Already have an account?{' '}
               <Link 
-                href="https://cms.acop.co.ke/wp-login.php?itsec-hb-token=acopcmsportalcollege" 
+                href={CMS_LOGIN_URL} 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-orange-600 hover:text-orange-700 font-medium hover:underline"

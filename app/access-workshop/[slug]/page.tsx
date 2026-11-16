@@ -85,11 +85,10 @@ export default async function WorkshopAccessPage({
   const { slug } = await params;
   console.log(`🔍 [2] WorkshopAccessPage - Slug: ${slug}`);
 
-  const meetingLink = process.env.WORKSHOP_LINK || '';
-  console.log(`🔍 [3] WorkshopAccessPage - Meeting Link: ${meetingLink}`);
-
-  if (!slug || !meetingLink) {
-    console.log('❌ [4] WorkshopAccessPage - Missing slug or meetingLink');
+  // The meeting link itself must never be rendered or passed to the client;
+  // it is served by /api/workshop-link only after authentication.
+  if (!slug || !process.env.WORKSHOP_LINK) {
+    console.log('❌ [4] WorkshopAccessPage - Missing slug or workshop link config');
     return notFound();
   }
 
@@ -154,7 +153,6 @@ export default async function WorkshopAccessPage({
     },
     location: {
       '@type': 'VirtualLocation',
-      url: meetingLink,
     },
   };
 
@@ -171,7 +169,6 @@ export default async function WorkshopAccessPage({
 
       <main className="min-h-screen">
         <WorkshopWrapper
-          meetingLink={meetingLink}
           workshopTitle={workshopTitle}
           workshopDate={workshopDate}
           workshopTime={workshopTime}

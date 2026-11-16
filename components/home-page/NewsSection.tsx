@@ -27,7 +27,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
 
   // Array of images for the promo card carousel
   const promoImages = [
-    { src: "/acopseptember.jpeg", alt: "Campus Highlights" },
+    { src: "https://res.cloudinary.com/kwishi/image/upload/v1794828954/ACOP/acopseptember_rutvvj.jpg", alt: "Campus Highlights" },
     { src: "/Septemberintake2026.webp", alt: "September 2026 Intake - Apply Now" },
   ];
 
@@ -65,7 +65,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
           <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
             <div className="relative aspect-video cursor-pointer" onClick={() => setOpen(true)}>
               <Image
-                src="/banner2.jpeg"
+                src="https://res.cloudinary.com/kwishi/image/upload/v1794829070/ACOP/banner2_b8tiys.jpg"
                 alt="Africana Video"
                 fill
                 className="object-cover"

@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const websiteUrl = 'https://www.acop.co.ke';
   const courseUrl = `${websiteUrl}/courses/${course.slug}`;
   
-  let ogImageUrl = `${websiteUrl}/acop2026intake.jpg`;
+  let ogImageUrl = `https://res.cloudinary.com/kwishi/image/upload/v1794828912/ACOP/acop2026intake_tizzd5.jpg`;
   
   if (course.featuredImage?.node?.sourceUrl) {
     let imageUrl = course.featuredImage.node.sourceUrl;

@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.acop.co.ke/admission-background.jpg',
+        url: 'https://res.cloudinary.com/kwishi/image/upload/v1794828956/ACOP/admission-background_jfh72x.jpg',
         width: 1200,
         height: 630,
         alt: 'Africana College Admissions',
