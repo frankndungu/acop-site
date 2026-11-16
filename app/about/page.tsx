@@ -53,7 +53,7 @@ export default function AboutPage() {
             '@type': 'CollegeOrUniversity',
             name: 'Africana College of Professionals',
             url: 'https://www.acop.co.ke',
-            logo: 'https://www.acop.co.ke/logo.png',
+            logo: 'https://res.cloudinary.com/kwishi/image/upload/v1794828912/ACOP/acoplogo_onlxud.jpg',
             description:
               'Africana College of Professionals is a leading professional training institution in Kenya offering diploma, certificate, and short courses.',
             address: {

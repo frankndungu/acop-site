@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.acop.co.ke/verify-og.jpg',
+        url: 'https://res.cloudinary.com/kwishi/image/upload/v1794828912/ACOP/acoplogo_onlxud.jpg',
         width: 1200,
         height: 630,
         alt: 'Verify ACOP Certificates',

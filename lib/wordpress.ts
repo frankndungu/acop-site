@@ -898,5 +898,5 @@ export function getSafeImageUrl(course: Course): string {
   if (course.featuredImage?.node?.sourceUrl) {
     return getLocalImageUrl(course.featuredImage.node.sourceUrl);
   }
-  return '/placeholder-course.jpg'; // Default placeholder image
+  return 'https://res.cloudinary.com/kwishi/image/upload/v1794829720/ACOP/courses_t9k3kv.png'; // Default placeholder image
 }

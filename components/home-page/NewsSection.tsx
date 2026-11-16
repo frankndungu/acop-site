@@ -159,7 +159,7 @@ export const NewsSection = ({ newsArticles }: NewsSectionProps) => {
                 >
                   <div className="relative w-24 h-24 shrink-0">
                     <Image
-                      src={featuredImage || "/placeholder.jpg"}
+                      src={featuredImage || "https://res.cloudinary.com/kwishi/image/upload/v1794830776/ACOP/news-og_fj1mvz.png"}
                       alt={article.title}
                       fill sizes="96px"
                       className="object-cover"
