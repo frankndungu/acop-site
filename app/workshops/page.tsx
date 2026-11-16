@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.acop.co.ke/workshop.webp',
+        url: 'https://res.cloudinary.com/kwishi/image/upload/v1794831013/ACOP/workshop_km40z0.webp',
         width: 1200,
         height: 630,
         alt: 'ACOP Workshops and Events',
@@ -105,7 +105,7 @@ export default async function WorkshopsPage() {
       <section className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/workshop.webp"
+            src="https://res.cloudinary.com/kwishi/image/upload/v1794831013/ACOP/workshop_km40z0.webp"
             alt="Workshops & Events"
             fill
             priority

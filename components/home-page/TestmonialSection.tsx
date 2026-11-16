@@ -12,7 +12,7 @@ const testimonials = [
     quote:
       "Africana taught me not just a profession — but a purpose. The mentorship I received transformed my approach to helping others.",
     image:
-      "/kagondu.jpg",
+      "https://res.cloudinary.com/kwishi/image/upload/v1794829724/ACOP/kagondu_rivanf.jpg",
   },
   {
     id: 2,

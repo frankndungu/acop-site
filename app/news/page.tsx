@@ -118,7 +118,7 @@ export default async function NewsPage({
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/news-og.png"
+            src="https://res.cloudinary.com/kwishi/image/upload/v1794830776/ACOP/news-og_fj1mvz.png"
             alt="News & Updates"
             fill
             priority

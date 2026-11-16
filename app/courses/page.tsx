@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.acop.co.ke/Septemberintake2026.webp",
+        url: "https://res.cloudinary.com/kwishi/image/upload/v1794830786/ACOP/Septemberintake2026_nl6m5g.webp",
         width: 1200,
         height: 630,
         alt: "Africana College Courses",
@@ -91,7 +91,7 @@ export default async function CoursesPage() {
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="/courses.png"
+                src="https://res.cloudinary.com/kwishi/image/upload/v1794829720/ACOP/courses_t9k3kv.png"
                 alt="Africana College Courses"
                 fill
                 priority

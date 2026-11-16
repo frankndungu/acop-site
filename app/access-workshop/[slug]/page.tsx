@@ -52,7 +52,7 @@ export async function generateMetadata({
 
   const websiteUrl = 'https://www.acop.co.ke';
   const pageUrl = `${websiteUrl}/workshop/${slug}`;
-  const ogImageUrl = article.featuredImage?.node?.sourceUrl || `${websiteUrl}/workshop.webp`;
+  const ogImageUrl = article.featuredImage?.node?.sourceUrl || `https://res.cloudinary.com/kwishi/image/upload/v1794831013/ACOP/workshop_km40z0.webp`;
 
   return {
     title: `${workshopTitle} (${eventTypeDisplay.label}) | Workshop Access | Africana College of Professionals`,

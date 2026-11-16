@@ -90,7 +90,7 @@ export default async function GetStartedPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/Septemberintake2026.webp"
+            src="https://res.cloudinary.com/kwishi/image/upload/v1794830786/ACOP/Septemberintake2026_nl6m5g.webp"
             alt="September 2026 Intake - Africana College of Professionals"
             fill
             priority
@@ -136,7 +136,7 @@ export default async function GetStartedPage() {
                 {/* Image Side */}
                 <div className="md:w-2/5 relative min-h-[200px] md:min-h-full">
                   <Image
-                    src="/Septemberintake2026.webp"
+                    src="https://res.cloudinary.com/kwishi/image/upload/v1794830786/ACOP/Septemberintake2026_nl6m5g.webp"
                     alt="September 2026 Intake - Apply Now at Africana College"
                     fill
                     className="object-cover"
