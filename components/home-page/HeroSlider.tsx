@@ -1,192 +1,165 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const slides = [
+interface Cta {
+  label: string;
+  href: string;
+}
+
+interface Slide {
+  id: number;
+  title: string;
+  subtitle?: string;
+  image: string;
+  primary?: Cta;
+  secondary?: Cta;
+}
+
+const SLIDES: Slide[] = [
   {
     id: 1,
     title: "September 2026 Intake Now Open! With Free Courses",
     subtitle: "Start Your Purpose Journey with Africana College of Professionals",
-    bgImage: "https://res.cloudinary.com/kwishi/image/upload/v1794831463/ACOP/acopseptember_ddhmk7.jpg",
-    primaryCta: "Apply Now",
-    secondaryCta: "Explore Courses",
+    image:
+      "https://res.cloudinary.com/kwishi/image/upload/v1794831463/ACOP/acopseptember_ddhmk7.jpg",
+    primary: { label: "Apply Now", href: "/get-started" },
+    secondary: { label: "Explore Courses", href: "/courses" },
   },
   {
     id: 2,
     title: "Rooted in Faith, Driven by Excellence",
-    subtitle: "",
-    bgImage: "https://res.cloudinary.com/kwishi/image/upload/v1794830790/ACOP/slide2_vng9cb.jpg",
-    primaryCta: "",
-    secondaryCta: "",
+    image:
+      "https://res.cloudinary.com/kwishi/image/upload/v1794830790/ACOP/slide2_vng9cb.jpg",
   },
   {
     id: 3,
     title: "Building Skills That Build Nations",
     subtitle: "Practical education for tomorrow's leaders.",
-    bgImage: "https://res.cloudinary.com/kwishi/image/upload/v1794830792/ACOP/slide3_edsuxt.jpg",
-    primaryCta: "Discover Our Courses",
-    secondaryCta: "",
+    image:
+      "https://res.cloudinary.com/kwishi/image/upload/v1794830792/ACOP/slide3_edsuxt.jpg",
+    primary: { label: "Discover Our Courses", href: "/courses" },
   },
   {
     id: 4,
     title: "Join a Thriving Community of Purpose-Driven Students",
     subtitle: "Where faith meets academic excellence.",
-    bgImage: "https://res.cloudinary.com/kwishi/image/upload/v1794830794/ACOP/slide4_y0pyty.jpg",
-    primaryCta: "Apply Now",
-    secondaryCta: "",
+    image:
+      "https://res.cloudinary.com/kwishi/image/upload/v1794830794/ACOP/slide4_y0pyty.jpg",
+    primary: { label: "Apply Now", href: "/get-started" },
   },
 ];
 
+const AUTOPLAY_MS = 8000;
+const SWIPE_THRESHOLD_PX = 50;
+
 export const HeroSlider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
-  const goPrev = () => {
-    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  const goTo = useCallback(
+    (index: number) => setCurrent((index + SLIDES.length) % SLIDES.length),
+    []
+  );
+  const goPrev = () => goTo(current - 1);
+  const goNext = useCallback(() => goTo(current + 1), [current, goTo]);
+
+  // Autoplay. Depends on `current`, so any manual navigation restarts the timer.
+  useEffect(() => {
+    if (paused) return;
+    const timer = setTimeout(goNext, AUTOPLAY_MS);
+    return () => clearTimeout(timer);
+  }, [goNext, paused]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
   };
 
-  const goNext = () => {
-    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  };
-
-  useEffect(() => {
-    const interval = setInterval(goNext, 8000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (sliderRef.current) {
-      const scrollWidth = sliderRef.current.clientWidth;
-      sliderRef.current.scrollTo({
-        left: scrollWidth * currentSlide,
-        behavior: "smooth",
-      });
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(delta) < SWIPE_THRESHOLD_PX) return;
+    if (delta < 0) {
+      goNext();
+    } else {
+      goPrev();
     }
-  }, [currentSlide]);
+  };
 
   return (
-    <section className="relative h-[60vh] sm:h-[55vh] md:h-[50vh] lg:h-[60vh] xl:h-[65vh] min-h-[400px] overflow-hidden">
-      {/* MOBILE SLIDER */}
-      <div
-        ref={sliderRef}
-        className="flex sm:hidden h-full w-full overflow-x-auto scroll-smooth snap-x snap-mandatory"
-      >
-        {slides.map((slide) => (
-          <div key={slide.id} className="shrink-0 w-full h-full relative snap-center">
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${slide.bgImage})` }}
-            />
-
-            {/* NEW RIGHT-SIDE FADE GRADIENT */}
-            <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent"></div>
-
-            <div className="container mx-auto px-4 h-full flex items-center relative z-20">
-              <div className="max-w-2xl text-white">
-                <h1 className="font-playfair text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-3 drop-shadow-lg">
-                  {slide.title}
-                </h1>
-
-                {slide.subtitle && (
-                  <p className="text-sm sm:text-base md:text-lg mb-4 opacity-95 leading-relaxed">
-                    {slide.subtitle}
-                  </p>
-                )}
-
-                {(slide.primaryCta || slide.secondaryCta) && (
-                  <div className="flex flex-col sm:flex-row gap-3">
-
-                    {slide.primaryCta === "Apply Now" && (
-                      <Link
-                        href="/get-started"
-                        className="bg-accent hover:bg-accent/90 text-white px-5 py-2.5 rounded-full font-medium text-center shadow-md text-sm sm:text-base"
-                      >
-                        {slide.primaryCta}
-                      </Link>
-                    )}
-
-                    {slide.primaryCta === "Discover Our Courses" && (
-                      <Link
-                        href="/courses"
-                        className="bg-accent hover:bg-accent/90 text-white px-5 py-2.5 rounded-full font-medium text-center shadow-md text-sm sm:text-base"
-                      >
-                        {slide.primaryCta}
-                      </Link>
-                    )}
-
-                    {slide.secondaryCta === "Explore Courses" && (
-                      <Link
-                        href="/courses"
-                        className="border-2 border-white hover:bg-white/10 text-white px-5 py-2.5 rounded-full font-medium text-center shadow-md text-sm sm:text-base"
-                      >
-                        {slide.secondaryCta}
-                      </Link>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* DESKTOP SLIDER */}
-      <div className="hidden sm:block h-full w-full">
-        {slides.map((slide, index) => (
+    <section
+      aria-roledescription="carousel"
+      aria-label="Featured announcements"
+      className="relative h-[70vh] min-h-[480px] max-h-[720px] overflow-hidden bg-primary"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      {SLIDES.map((slide, index) => {
+        const active = index === current;
+        return (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${index + 1} of ${SLIDES.length}`}
+            aria-hidden={!active}
+            className={`absolute inset-0 transition-opacity duration-700 ${
+              active ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
             }`}
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${slide.bgImage})` }}
+            <Image
+              src={slide.image}
+              alt=""
+              fill
+              sizes="100vw"
+              priority={index === 0}
+              className="object-cover object-center"
             />
 
-            {/* NEW GRADIENT */}
-            <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent"></div>
+            {/* Scrim: dark enough behind the copy to keep it readable on any photo.
+                Solid-ish on mobile where text spans the full width, fading to the
+                right on larger screens so the photo still shows. */}
+            <div className="absolute inset-0 bg-black/60 md:bg-transparent md:bg-linear-to-r md:from-black/80 md:via-black/55 md:to-black/10" />
 
-            <div className="container mx-auto px-4 h-full flex items-center relative z-20">
-              <div className="max-w-2xl text-white">
-                <h1 className="font-playfair text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 drop-shadow-lg">
+            <div className="relative z-20 container mx-auto px-6 sm:px-10 h-full flex items-center">
+              <div className="max-w-xl lg:max-w-2xl text-white">
+                <h1 className="font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-balance drop-shadow-md">
                   {slide.title}
                 </h1>
 
                 {slide.subtitle && (
-                  <p className="text-base md:text-lg lg:text-xl mb-5 opacity-95 leading-relaxed">
+                  <p className="mt-4 text-base sm:text-lg text-white/90 leading-relaxed max-w-prose">
                     {slide.subtitle}
                   </p>
                 )}
 
-                {(slide.primaryCta || slide.secondaryCta) && (
-                  <div className="flex flex-row gap-4 flex-wrap">
-                    {slide.primaryCta === "Apply Now" && (
+                {(slide.primary || slide.secondary) && (
+                  <div className="mt-7 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                    {slide.primary && (
                       <Link
-                        href="/get-started"
-                        className="bg-accent hover:bg-accent/90 text-white px-6 py-2.5 rounded-full font-medium text-center shadow-md"
+                        href={slide.primary.href}
+                        tabIndex={active ? 0 : -1}
+                        className="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-full font-semibold text-center shadow-md transition-colors"
                       >
-                        {slide.primaryCta}
+                        {slide.primary.label}
                       </Link>
                     )}
-
-                    {slide.primaryCta === "Discover Our Courses" && (
+                    {slide.secondary && (
                       <Link
-                        href="/courses"
-                        className="bg-accent hover:bg-accent/90 text-white px-6 py-2.5 rounded-full font-medium text-center shadow-md"
+                        href={slide.secondary.href}
+                        tabIndex={active ? 0 : -1}
+                        className="border-2 border-white hover:bg-white/15 text-white px-6 py-3 rounded-full font-semibold text-center transition-colors"
                       >
-                        {slide.primaryCta}
-                      </Link>
-                    )}
-
-                    {slide.secondaryCta === "Explore Courses" && (
-                      <Link
-                        href="/courses"
-                        className="border-2 border-white hover:bg-white/10 text-white px-6 py-2.5 rounded-full font-medium text-center shadow-md"
-                      >
-                        {slide.secondaryCta}
+                        {slide.secondary.label}
                       </Link>
                     )}
                   </div>
@@ -194,32 +167,38 @@ export const HeroSlider = () => {
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        );
+      })}
 
-      {/* ARROWS */}
+      {/* Arrows (hidden on touch-size screens, where swiping is used) */}
       <button
+        type="button"
         onClick={goPrev}
-        className="cursor-pointer hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 h-10 w-10 rounded-full bg-accent/70 hover:bg-accent backdrop-blur-md shadow-lg items-center justify-center"
+        aria-label="Previous slide"
+        className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 h-11 w-11 items-center justify-center rounded-full bg-black/40 hover:bg-accent text-white shadow-lg transition-colors cursor-pointer"
       >
-        <ChevronLeft className="text-white w-5 h-5" />
+        <ChevronLeft className="w-5 h-5" aria-hidden="true" />
       </button>
-
       <button
+        type="button"
         onClick={goNext}
-        className="cursor-pointer hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-30 h-10 w-10 rounded-full bg-accent/70 hover:bg-accent backdrop-blur-md shadow-lg items-center justify-center"
+        aria-label="Next slide"
+        className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-30 h-11 w-11 items-center justify-center rounded-full bg-black/40 hover:bg-accent text-white shadow-lg transition-colors cursor-pointer"
       >
-        <ChevronRight className="text-white w-5 h-5" />
+        <ChevronRight className="w-5 h-5" aria-hidden="true" />
       </button>
 
-      {/* INDICATORS */}
-      <div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center gap-2">
-        {slides.map((_, index) => (
+      {/* Indicators */}
+      <div className="absolute bottom-5 left-0 right-0 z-30 flex justify-center gap-2">
+        {SLIDES.map((slide, index) => (
           <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`h-1.5 rounded-full transition-all ${
-              index === currentSlide ? "w-8 bg-accent" : "w-2 bg-white/50"
+            key={slide.id}
+            type="button"
+            onClick={() => goTo(index)}
+            aria-label={`Go to slide ${index + 1}`}
+            aria-current={index === current}
+            className={`h-2 rounded-full transition-all cursor-pointer ${
+              index === current ? "w-8 bg-accent" : "w-2 bg-white/60 hover:bg-white"
             }`}
           />
         ))}
